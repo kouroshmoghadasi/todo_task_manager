@@ -2,78 +2,163 @@
     {
         "id": "e461fd2f-f228-465c-bc5e-f5f5c4094e36",
         "title": "a3",
+        "category": "Personal1",
         "completed": true,
         "created_at": "2025-08-10T22:42:55.343941",
-        "done_at": "2025-08-17T20:34:41.957491"
+        "done_at": "2025-08-17T20:34:41.957491",
+        "due_date": null
     },
     {
         "id": "bf12b4fe-f6ca-4cf9-a97f-7ecf9be02a7b",
         "title": "AA",
+        "category": "Personal1",
         "completed": true,
         "created_at": "2025-08-11T21:45:56.399276",
-        "done_at": "2025-08-17T20:36:26.147415"
+        "done_at": "2025-08-17T20:36:26.147415",
+        "due_date": null
     },
     {
         "id": "34bd0ae5-62f6-427b-b618-c44ada2eea63",
         "title": "BB",
+        "category": "Personal1",
         "completed": true,
         "created_at": "2025-08-11T21:46:35.427461",
-        "done_at": "2025-08-13T22:43:48.464581"
+        "done_at": "2025-08-13T22:43:48.464581",
+        "due_date": null
     },
     {
         "id": "bcb15cb1-2a53-47c9-aea1-fcd05b96ba9d",
         "title": "aaa",
+        "category": "Personal1",
         "completed": true,
         "created_at": "2025-08-13T22:11:55.773844",
-        "done_at": "2025-08-13T22:17:32.941450"
+        "done_at": "2025-08-13T22:17:32.941450",
+        "due_date": null
     },
     {
         "id": "e17964e8-0d33-4273-b5e6-810c8a304b08",
         "title": "bbbbb",
+        "category": "Personal1",
         "completed": true,
         "created_at": "2025-08-13T22:22:22.029330",
-        "done_at": "2025-08-13T22:43:28.707703"
+        "done_at": "2025-08-13T22:43:28.707703",
+        "due_date": null
     },
     {
         "id": "3c6d012a-752a-4d8e-9dc2-531c687a7941",
         "title": "aaa1",
+        "category": "Personal1",
         "completed": true,
         "created_at": "2025-08-14T06:51:18.517406",
-        "done_at": "2025-08-14T06:51:21.359736"
+        "done_at": "2025-08-14T06:51:21.359736",
+        "due_date": null
     },
     {
         "id": "04c8da4f-8b2f-495e-bbf8-ae21fdc7f7ae",
         "title": "bbbb",
+        "category": "Personal1",
         "completed": true,
         "created_at": "2025-08-14T06:51:25.142761",
-        "done_at": "2025-08-14T06:51:28.556691"
+        "done_at": "2025-08-14T06:51:28.556691",
+        "due_date": null
     },
     {
         "id": "6014fd14-2643-463b-9f8d-32ad52bded58",
         "title": "buy food",
+        "category": "Personal1",
         "completed": true,
         "created_at": "2025-08-17T20:33:49.226185",
-        "done_at": "2025-08-17T20:34:50.122496"
+        "done_at": "2025-08-17T20:34:50.122496",
+        "due_date": null
     },
     {
         "id": "3783daf9-a28a-4b45-81c6-65bc0bcc5054",
         "title": "ali",
+        "category": "Personal1",
         "completed": true,
         "created_at": "2025-08-17T20:42:39.054873",
-        "done_at": "2025-08-17T20:43:05.751864"
+        "done_at": "2025-08-17T20:43:05.751864",
+        "due_date": null
     },
     {
         "id": "a213d570-f9f4-4a9d-8d34-79097dd68081",
         "title": "reza",
+        "category": "Personal1",
         "completed": true,
         "created_at": "2025-08-17T20:42:50.286540",
-        "done_at": "2025-08-17T20:43:02.554679"
+        "done_at": "2025-08-17T20:43:02.554679",
+        "due_date": null
     },
     {
         "id": "7fe53d93-066a-4e79-997b-bbc6175b5473",
         "title": "baba",
+        "category": "Personal1",
         "completed": true,
         "created_at": "2025-08-17T20:44:03.885386",
-        "done_at": "2025-08-17T20:47:14.136696"
+        "done_at": "2025-08-17T20:47:14.136696",
+        "due_date": null
+    },
+    {
+        "id": "0709d45c-d5d3-42a3-8df8-9d4ff1285faa",
+        "title": "koroush",
+        "category": "Work",
+        "completed": true,
+        "created_at": "2025-08-20T00:25:55.935344",
+        "done_at": "2025-08-20T00:26:02.054725",
+        "due_date": null
+    },
+    {
+        "id": "08e13ff0-484b-45ff-b42c-70dc56b8c087",
+        "title": "arad",
+        "category": "Personal1",
+        "completed": true,
+        "created_at": "2025-08-20T00:26:09.253039",
+        "done_at": "2025-08-20T23:22:23.114749",
+        "due_date": null
+    },
+    {
+        "id": "6a2b3779-2a20-4587-b451-c66b709c9ba5",
+        "title": "ali jaza",
+        "category": "Personal1",
+        "completed": true,
+        "created_at": "2025-08-20T22:58:32.922044",
+        "done_at": "2025-08-20T22:58:36.576611",
+        "due_date": null
+    },
+    {
+        "id": "bd70c074-c4c9-4b69-b331-5c76a669f1d9",
+        "title": "ali reza",
+        "category": "Personal",
+        "completed": false,
+        "created_at": "2025-08-21T22:15:53.290735",
+        "done_at": null,
+        "due_date": null
+    },
+    {
+        "id": "c5a9700f-4b95-4502-a5cb-b2a0b73e4017",
+        "title": "kmo",
+        "category": "Work",
+        "completed": true,
+        "created_at": "2025-08-21T22:16:03.420088",
+        "done_at": "2025-08-21T22:16:07.557295",
+        "due_date": null
+    },
+    {
+        "id": "6f8b11c3-7e62-4d44-b4da-fa45b308f055",
+        "title": "test1",
+        "category": "Personal",
+        "completed": false,
+        "created_at": "2025-08-22T07:01:41.795400",
+        "done_at": null,
+        "due_date": "2025-08-22"
+    },
+    {
+        "id": "2f2b8fff-b21b-4029-ad27-4b20050062a8",
+        "title": "tttt",
+        "category": "Personal",
+        "completed": true,
+        "created_at": "2025-08-23T21:39:10.186163",
+        "done_at": "2025-08-23T21:39:44.354386",
+        "due_date": "2025-08-23"
     }
 ]
