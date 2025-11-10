@@ -2,120 +2,137 @@ from __future__ import annotations
 
 import json
 import os
-from typing import List
+from typing import List, Optional
 
 
 class CategoryManager:
     """
-    Manages task categories with persistence to a JSON file.
-    - Keeps a reserved "All" option for filtering (not persisted)
-    - Provides add, rename, delete operations
+    Simple category manager with optional JSON persistence.
     """
 
-    def __init__(self, filename: str = "categories.json", defaults: List[str] | None = None) -> None:
+    def __init__(self, filename: Optional[str] = "categories.json", defaults: Optional[List[str]] = None) -> None:
         self.filename = filename
-        self._user_categories: List[str] = []
         self._defaults = defaults or ["Personal", "Work", "School"]
+        self._user_categories: List[str] = []
+        if self.filename:
+            self.load()
+        else:
+            self._user_categories = list(self._defaults)
 
-    # ---------- Persistence ----------
+    # Persistence
     def load(self) -> None:
+        if not self.filename:
+            self._user_categories = list(self._defaults)
+            return
         if os.path.exists(self.filename):
             try:
                 with open(self.filename, "r", encoding="utf-8") as f:
                     data = json.load(f)
                     cats = data.get("categories", [])
-                    self._user_categories = self._normalize_list(cats)
+                    self._user_categories = self._normalize_list(cats) or list(self._defaults)
             except Exception:
-                # Fallback to defaults on read error
                 self._user_categories = list(self._defaults)
         else:
-            # Initialize with defaults on first run
-            self._user_categories = list(self._defaults)
-            self.save()
-
-        # Ensure at least one category available
-        if not self._user_categories:
             self._user_categories = list(self._defaults)
             self.save()
 
     def save(self) -> None:
+        if not self.filename:
+            return
         try:
             with open(self.filename, "w", encoding="utf-8") as f:
                 json.dump({"categories": self._user_categories}, f, ensure_ascii=False, indent=2)
         except Exception:
-            # Ignore persistence errors silently
             pass
 
-    # ---------- Accessors ----------
+    # Accessors
     def get_all_categories(self) -> List[str]:
         return ["All"] + list(self._user_categories)
 
     def get_task_categories(self) -> List[str]:
         return list(self._user_categories)
 
-    # ---------- Mutations ----------
+    # Backwards-compatible names
+    def get_categories(self) -> List[str]:
+        return self.get_task_categories()
+
+    def list_categories(self) -> List[str]:
+        return self.get_task_categories()
+
+    # Mutations
     def add_category(self, name: str) -> bool:
         name = self._clean(name)
         if not name or name.lower() == "all" or name in self._user_categories:
             return False
         self._user_categories.append(name)
-        self._user_categories = sorted(self._user_categories)
+        self._user_categories.sort()
         self.save()
         return True
 
-    def rename_category(self, old: str, new: str, tasks: List[object]) -> bool:
+    def remove_category(self, name: str) -> bool:
+        name = self._clean(name)
+        if not name or name.lower() == "all":
+            return False
+        try:
+            self._user_categories.remove(name)
+            self.save()
+            return True
+        except ValueError:
+            return False
+
+    def rename_category(self, old: str, new: str, tasks: Optional[List[object]] = None) -> bool:
         old = self._clean(old)
         new = self._clean(new)
         if not old or not new or new.lower() == "all":
             return False
         if new in self._user_categories and new != old:
             return False
-        # Update tasks
-        for t in tasks:
-            try:
-                if getattr(t, "category", None) == old:
-                    setattr(t, "category", new)
-            except Exception:
-                continue
-        # Update list
+        if tasks:
+            for t in tasks:
+                try:
+                    if getattr(t, "category", None) == old:
+                        setattr(t, "category", new)
+                except Exception:
+                    continue
         try:
             idx = self._user_categories.index(old)
             self._user_categories[idx] = new
         except ValueError:
-            # If old not found (already removed), append new
             if new not in self._user_categories:
                 self._user_categories.append(new)
-        self._user_categories = sorted(self._user_categories)
+        self._user_categories.sort()
         self.save()
         return True
 
-    def delete_category(self, name: str, replacement: str, tasks: List[object]) -> bool:
+    def delete_category(self, name: str, replacement: str = "", tasks: Optional[List[object]] = None) -> bool:
         name = self._clean(name)
         replacement = self._clean(replacement)
         if not name or name.lower() == "all":
             return False
-        # Apply reassignment first
-        for t in tasks:
-            try:
-                if getattr(t, "category", None) == name:
-                    setattr(t, "category", replacement)
-            except Exception:
-                continue
-        # Remove from list
+        if tasks:
+            for t in tasks:
+                try:
+                    if getattr(t, "category", None) == name:
+                        setattr(t, "category", replacement)
+                except Exception:
+                    continue
         try:
             self._user_categories.remove(name)
         except ValueError:
             pass
-        # Ensure replacement exists
-        if replacement and replacement not in self._user_categories and replacement.lower() != "all":
+        if replacement and replacement.lower() != "all" and replacement not in self._user_categories:
             self._user_categories.append(replacement)
-        self._user_categories = sorted(self._user_categories)
+        self._user_categories.sort()
         self.save()
         return True
 
-    # ---------- Helpers ----------
+    # Utilities
+    def clear_categories(self) -> None:
+        self._user_categories = []
+        self.save()
+
     @staticmethod
-    def _clean(val: str | None) -> str:
+    def _clean(val: Optional[str]) -> str:
         return (val or "").strip()
 
     @staticmethod
@@ -129,35 +146,5 @@ class CategoryManager:
             normalized.append(v2)
             seen.add(v2)
         return normalized
-
-    def __init__(self):
-        # در این پیاده‌سازی ساده دسته‌بندی‌ها در حافظه نگهداری می‌شوند
-        self.categories = []
-
-    def add_category(self, name):
-        """افزودن دسته‌بندی جدید در صورت وجود نداشتن"""
-        if name not in self.categories:
-            self.categories.append(name)
-            return True
-        return False
-
-    def remove_category(self, name):
-        """حذف دسته‌بندی در صورت وجود"""
-        if name in self.categories:
-            self.categories.remove(name)
-            return True
-        return False
-
-    def get_categories(self):
-        """برگرداندن لیست دسته‌بندی‌ها (برای سازگاری با تست‌ها)"""
-        return list(self.categories)
-
-    # نام مستعار سازگاری
-    def list_categories(self):
-        return self.get_categories()
-
-    def clear_categories(self):
-        """پاک کردن همه دسته‌بندی‌ها (برای استفاده در تست‌ها)"""
-        self.categories = []
 
 
